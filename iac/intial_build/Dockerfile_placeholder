@@ -1,0 +1,5 @@
+FROM public.ecr.aws/lambda/python:3.12
+# Copy function code
+COPY placeholder_lambda.py /var/task
+# Set the CMD to your handler
+CMD [ "placeholder_lambda.handler" ]
