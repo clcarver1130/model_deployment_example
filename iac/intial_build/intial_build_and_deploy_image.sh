@@ -4,10 +4,10 @@
 
 # Variables
 AWS_REGION="us-east-1" # Replace with your desired AWS Region
-AWS_ACCOUNT_ID="396577395766" # Replace with your AWS Account ID
+AWS_ACCOUNT_ID="" # Replace with your AWS Account ID
 REPOSITORY_NAME="ml-inference-api-repo" # Must match the ECR repository name in your Terraform configuration
 IMAGE_TAG="latest"
-profile_name="personal" # Change this to your AWS CLI profile name
+profile_name="" # Change this to your AWS CLI profile name
 
 # Build the Docker image
 # The --provenance=false flag is used if you are running on a Machine with Apple Silicon (M1/M2) to avoid issues with provenance data
