@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/**' # Only run when code in the inference folder changes
+#    paths:
+#      - 'src/**' # Only run when code in the inference folder changes
 
 env:
-  AWS_REGION: ${{ vars.AWS_REGION }}
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
-  IMAGE_TAG: ${{ github.sha }}
+  AWS_REGION: "us-east-1"
+  ECR_REPOSITORY: "ml-inference-api-repo"
+  IMAGE_TAG: "latest"
 
 jobs:
   build-and-push:
