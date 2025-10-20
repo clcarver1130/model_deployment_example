@@ -11,6 +11,8 @@ env:
   AWS_REGION: "us-east-1"
   ECR_REPOSITORY: "ml-inference-api-repo"
   IMAGE_TAG: "latest"
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   build-and-push:

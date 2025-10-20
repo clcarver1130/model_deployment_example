@@ -10,7 +10,6 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  profile    = "personal" # Change this to your AWS CLI profile name
 }
 
 # --- 1. ECR Repository for Docker Image ---
