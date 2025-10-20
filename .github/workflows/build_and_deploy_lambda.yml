@@ -1,4 +1,4 @@
-name: Redeploy Model
+name: Build and Deploy Lambda
 
 on:
   push:
@@ -45,4 +45,4 @@ jobs:
           terraform init
           # Pass the new image tag as a variable to terraform
           terraform apply -auto-approve -var="image_tag=${{ github.sha }}"
-        working-directory: ./terraform
+        working-directory: ./iac/terraform
