@@ -71,8 +71,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs_attach" {
   policy_arn = aws_iam_policy.lambda_logging_policy.arn
 }
 
-# Optional: Add ECR read permissions if your Lambda needs to pull the image immediately
-# The standard Lambda service role usually handles this, but explicitly adding it is safer.
+
 resource "aws_iam_role_policy_attachment" "lambda_ecr_read" {
   role       = aws_iam_role.lambda_exec_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
@@ -125,4 +124,9 @@ resource "aws_lambda_permission" "apigw_lambda_permission" {
 
   # The source_arn must refer to the specific route and API.
   source_arn = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
+}
+
+# --- Outputs ---
+output "api_invoke_url" {
+  value = aws_apigatewayv2_api.http_api.api_endpoint
 }
