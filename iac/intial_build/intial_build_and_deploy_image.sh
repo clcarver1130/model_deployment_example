@@ -7,17 +7,21 @@ AWS_REGION="us-east-1" # Replace with your desired AWS Region
 AWS_ACCOUNT_ID="" # Replace with your AWS Account ID
 REPOSITORY_NAME="ml-inference-api-repo" # Must match the ECR repository name in your Terraform configuration
 IMAGE_TAG="latest"
-profile_name="" # Change this to your AWS CLI profile name
+profile_name="personal" # Change this to your AWS CLI profile name
+TERRAFORM_STATE_BUCKET="ml-inference-state-bucket"
 
-# Build the Docker image
-# The --provenance=false flag is used if you are running on a Machine with Apple Silicon (M1/M2) to avoid issues with provenance data
-docker build --platform linux/amd64 --provenance=false -t ${REPOSITORY_NAME}:${IMAGE_TAG} -f Dockerfile_placeholder .
+## Build the Docker image
+## The --provenance=false flag is used if you are running on a Machine with Apple Silicon (M1/M2) to avoid issues with provenance data
+#docker build --platform linux/amd64 --provenance=false -t ${REPOSITORY_NAME}:${IMAGE_TAG} -f Dockerfile_placeholder .
+#
+## Authenticate Docker to the ECR registry
+#aws ecr --profile ${profile_name} get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+#
+## Tag the Docker image
+#docker tag ${REPOSITORY_NAME}:${IMAGE_TAG} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
+#
+## Push the Docker image to ECR
+#docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
 
-# Authenticate Docker to the ECR registry
-aws ecr --profile ${profile_name} get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-
-# Tag the Docker image
-docker tag ${REPOSITORY_NAME}:${IMAGE_TAG} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
-
-# Push the Docker image to ECR
-docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
+# Build there terraform state bucket:
+aws s3 mb s3://${TERRAFORM_STATE_BUCKET} --profile ${profile_name} --region ${AWS_REGION}
