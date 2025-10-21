@@ -85,7 +85,7 @@ resource "aws_lambda_function" "ml_inference_lambda" {
   role          = aws_iam_role.lambda_exec_role.arn
   image_uri     = "${aws_ecr_repository.ml_inference_repo.repository_url}:${var.image_tag}"
   package_type  = "Image"
-  memory_size   = 128
+  memory_size   = 1024 # 1 GB
   timeout       = 30
 }
 
