@@ -46,5 +46,5 @@ jobs:
       - name: Deploy Infrastructure with Terraform
         run: |
           terraform init
-          terraform apply -auto-approve -var="image_tag=${{ github.sha }}"
+          terraform apply -auto-approve -var="image_tag=${{ env.IMAGE_TAG }}"
         working-directory: ./iac/terraform
